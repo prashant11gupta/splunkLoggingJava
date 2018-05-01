@@ -40,7 +40,6 @@ import org.apache.http.nio.reactor.ConnectingIOReactor;
  * @author Damien Dallimore damien@dtdsoftware.com
  * 
  */
-
 public class SplunkHECInput extends SplunkInput {
 
 	// connection props
@@ -102,7 +101,7 @@ public class SplunkHECInput extends SplunkInput {
 		BatchBufferActivityCheckerThread() {
 
 		}
-
+		
 		public void run() {
 
 			while (true) {
@@ -207,7 +206,6 @@ public class SplunkHECInput extends SplunkInput {
 					.append("\"").append("}");
 
 			currentMessage = json.toString();
-			System.out.println("currentMsg" +currentMessage);
 			if (config.isBatchMode()) {
 				lastEventReceivedTime = System.currentTimeMillis();
 				currentBatchSizeBytes += currentMessage.length();
@@ -265,9 +263,6 @@ public class SplunkHECInput extends SplunkInput {
 
 	private void hecPost(String currentMessage) throws Exception {
 		
-		System.out.println("Posting "+currentMessage + "uri: " + uri);
-		
-		
 		HttpPost post = new HttpPost(uri);
 		post.addHeader("Authorization", "Splunk " + config.getToken());
 
@@ -275,12 +270,8 @@ public class SplunkHECInput extends SplunkInput {
 				ContentType.create("application/json", "UTF-8"));
 
 		post.setEntity(requestEntity);
-	//	System.out.println(requestEntity);
 		Future<HttpResponse> future = httpClient.execute(post, null);
-	//	System.out.println(future);
 		HttpResponse response = future.get();
-		System.out.println("Status line" + response.getStatusLine());
-		//System.out.println(EntityUtils.toString(response.getEntity()));
 
 	}
 }
