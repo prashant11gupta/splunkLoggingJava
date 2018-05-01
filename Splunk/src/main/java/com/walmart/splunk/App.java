@@ -8,7 +8,7 @@ public class App
 	public static void main(String[] args) throws Exception {
         Logger logger = LoggerFactory.getLogger(App.class);
       
-        logger.info("Start logging in splunk");
+        logger.info("Start logging in splunk using HEC");
         logger.error("Error found");
    
     }
